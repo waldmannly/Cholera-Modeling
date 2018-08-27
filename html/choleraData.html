@@ -1,0 +1,370 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>choleraData</title><meta name="generator" content="MATLAB 9.1"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2017-04-09"><meta name="DC.source" content="choleraData.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><pre class="codeinput"><span class="keyword">function</span> data=choleraData(high, mid, low)
+
+ time = 4000;           <span class="comment">%time in days</span>
+ timex = [0:1:time];    <span class="comment">%time array</span>
+
+Narr= [high;mid;low]; <span class="comment">%population</span>
+
+ initS = [Narr(1)*.999;Narr(2)*.999;Narr(3)*.999];  <span class="comment">%initial susecptible pop</span>
+ initI = [Narr(1)*.001;Narr(2)*.001;Narr(3)*.001];  <span class="comment">%initial infected pop</span>
+ initR = [Narr(1)*0;Narr(2)*0;Narr(3)*0];           <span class="comment">%initial recovered pop</span>
+ initB = [0;0;0];                                   <span class="comment">%initial bateria in water</span>
+
+
+N = sum(Narr) ;
+
+Lambda = [.0000638356;.0000638356;.0000638356];     <span class="comment">%birth rates</span>
+mu= [.0000210958;.0000210958;.0000210958];          <span class="comment">%mortality rate</span>
+beta = 10^-8*[1 1 1;
+              1 1 1;                                <span class="comment">%human to human transmission rate</span>
+              1 1 1];
+epsilon = [.0002739726;.0002739726;.0002739726];    <span class="comment">%loss of immunity rate</span>
+lambda = 10^-8* [1;1;1];                            <span class="comment">%water to human transmission rate</span>
+gamma =[.2;.2;.2];                                  <span class="comment">%recovery rate</span>
+alpha =[.0005;.0005;.0005];                         <span class="comment">%disease induce mortality</span>
+xi = [7;7;7];                                       <span class="comment">%shedding rate</span>
+delta =[.33;.33;.33];                               <span class="comment">%baterial death rate</span>
+
+
+flist = @(Y) [Lambda(1)*Narr(1)-mu(1)*Y(1)-beta(1,1)*Y(1)*Y(2)-beta(1,2)*Y(1)*Y(6)-lambda(1)*Y(1)*Y(4)+epsilon(1)*Y(3),<span class="keyword">...</span>
+    beta(1,1)*Y(1)*Y(2)+beta(1,2)*Y(1)*Y(6)+lambda(1)*Y(1)*Y(4)-(gamma(1)+mu(1)+alpha(1))*Y(2),<span class="keyword">...</span>
+    gamma(1)*Y(2)-mu(1)*Y(3)-epsilon(1)*Y(3),<span class="keyword">...</span>
+    xi(1)*Y(2)-delta(1)*Y(4),<span class="keyword">...</span>
+    Lambda(2)*Narr(2)-mu(2)*Y(5)-beta(2,2)*Y(5)*Y(6)-beta(2,1)*Y(5)*Y(2)-beta(2,3)*Y(5)*Y(10)-lambda(2)*Y(5)*Y(8)+epsilon(2)*Y(7),<span class="keyword">...</span>
+    beta(2,2)*Y(5)*Y(6)+beta(2,1)*Y(5)*Y(2)+beta(2,3)*Y(5)*Y(10)+lambda(2)*Y(5)*Y(8)-(gamma(2)+mu(2)+alpha(2))*Y(6),<span class="keyword">...</span><span class="comment">                                 %6  Im</span>
+    gamma(2)*Y(6)-mu(2)*Y(7)-epsilon(2)*Y(7),<span class="keyword">...</span>
+    xi(2)*Y(6)-delta(2)*Y(8),<span class="keyword">...</span>
+    Lambda(3)*Narr(3)-mu(3)*Y(9)-beta(3,3)*Y(9)*Y(10)-beta(3,2)*Y(9)*Y(6)-lambda(3)*Y(9)*Y(12)+epsilon(3)*Y(11),<span class="keyword">...</span>
+    beta(3,3)*Y(9)*Y(10)+beta(3,2)*Y(9)*Y(6)+lambda(3)*Y(9)*Y(12)-(gamma(3)+mu(3)+alpha(3))*Y(10),<span class="keyword">...</span>
+    gamma(3)*Y(10)-mu(3)*Y(11)-epsilon(3)*Y(11),<span class="keyword">...</span>
+    xi(3)*Y(10)-delta(3)*Y(12)];
+
+init = [initS(1) initI(1) initR(1) initB(1) initS(2) initI(2) initR(2) initB(2) initS(3) initI(3) initR(3) initB(3)];
+h=1;
+steps=time;
+freq=1;
+
+out = RKStage5( flist ,init, 1, time, 1);
+
+totS = out(:,1)+out(:,5)+out(:,9);
+totI = out(:,2)+out(:,6)+out(:,10);
+totR = out(:,3)+out(:,7)+out(:,11);
+totB = out(:,4)+out(:,8)+out(:,12);
+totals = [totS totI totR];
+endTotal = totals(time,:, :, :)
+totals = [totS totI totR, totB];
+
+
+hold <span class="string">on</span>
+a1 = plot(timex,totS,<span class="string">'m--'</span>);
+M1 = <span class="string">'susceptible pop'</span>;
+
+a2 = plot(timex,totI, <span class="string">'k-.'</span>);
+M2 = <span class="string">'infected pop   '</span>;
+
+a3 = plot(timex,totR , <span class="string">'b'</span>);
+M3 = <span class="string">'recovered pop  '</span>;
+
+
+xlabel(<span class="string">'Time in Days'</span>),ylabel(<span class="string">'Total People'</span>), title(<span class="string">'SIWR GDP STRUCTURED MODEL total'</span>)
+legend([a1; a2; a3], [M1; M2; M3]);
+snapnow
+hold <span class="string">off</span>
+clf
+
+hold <span class="string">on</span>
+a1 = plot(timex,out(:,1),<span class="string">'m--'</span>);
+M1 = <span class="string">'susceptible pop'</span>;
+
+a2 = plot(timex,out(:,2), <span class="string">'k-.'</span>);
+M2 = <span class="string">'infected pop   '</span>;
+
+a3 = plot(timex,out(:,3) , <span class="string">'b'</span>);
+M3 = <span class="string">'recovered pop  '</span>;
+
+
+xlabel(<span class="string">'Time in Days'</span>),ylabel(<span class="string">'Total People'</span>), title(<span class="string">'SIWR GDP STRUCTURED MODEL high'</span>)
+legend([a1; a2; a3], [M1; M2; M3]);
+snapnow
+hold <span class="string">off</span>
+clf
+hold <span class="string">on</span>
+a1 = plot(timex,out(:,5),<span class="string">'m--'</span>);
+M1 = <span class="string">'susceptible pop'</span>;
+
+a2 = plot(timex,out(:,6), <span class="string">'k-.'</span>);
+M2 = <span class="string">'infected pop   '</span>;
+
+a3 = plot(timex,out(:,7) , <span class="string">'b'</span>);
+M3 = <span class="string">'recovered pop  '</span>;
+
+
+xlabel(<span class="string">'Time in Days'</span>),ylabel(<span class="string">'Total People'</span>), title(<span class="string">'SIWR GDP STRUCTURED MODEL mid'</span>)
+legend([a1; a2; a3], [M1; M2; M3]);
+snapnow
+hold <span class="string">off</span>
+clf
+hold <span class="string">on</span>
+a1 = plot(timex,out(:,9),<span class="string">'m--'</span>);
+M1 = <span class="string">'susceptible pop'</span>;
+
+a2 = plot(timex,out(:,10), <span class="string">'k-.'</span>);
+M2 = <span class="string">'infected pop   '</span>;
+
+a3 = plot(timex,out(:,11) , <span class="string">'b'</span>);
+M3 = <span class="string">'recovered pop  '</span>;
+
+
+xlabel(<span class="string">'Time in Days'</span>),ylabel(<span class="string">'Total People'</span>), title(<span class="string">'SIWR GDP STRUCTURED MODEL low'</span>)
+legend([a1; a2; a3], [M1; M2; M3]);
+snapnow
+hold <span class="string">off</span>
+clf
+hold <span class="string">on</span>
+a1 = plot(timex,out(:,4),<span class="string">'m--'</span>);
+M1 = <span class="string">'bacteria high '</span>;
+
+a2 = plot(timex,out(:,8), <span class="string">'k-.'</span>);
+M2 = <span class="string">'bateria mid   '</span>;
+
+a3 = plot(timex,out(:,12) , <span class="string">'b'</span>);
+M3 = <span class="string">'bateria low   '</span>;
+
+
+xlabel(<span class="string">'Time in Days'</span>),ylabel(<span class="string">'Total bateria'</span>), title(<span class="string">'bateria differences'</span>)
+legend([a1; a2; a3], [M1; M2; M3]);
+snapnow
+hold <span class="string">off</span>
+
+
+peaksinfected = [max(out(:,2)); max(out(:,6)); max(out(:,10))]
+peakTotInfected = max(totI)
+peaksbacteria = [max(out(:,4)); max(out(:,8)); max(out(:,12))]
+peakTotBateria = max(totB)
+sumtotals = sum(totals,1)
+data = out;
+<span class="keyword">end</span>
+</pre><pre class="codeoutput error">Not enough input arguments.
+
+Error in choleraData (line 6)
+Narr= [high;mid;low]; %population
+</pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2016b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+function data=choleraData(high, mid, low)
+
+ time = 4000;           %time in days
+ timex = [0:1:time];    %time array
+
+Narr= [high;mid;low]; %population
+ 
+ initS = [Narr(1)*.999;Narr(2)*.999;Narr(3)*.999];  %initial susecptible pop
+ initI = [Narr(1)*.001;Narr(2)*.001;Narr(3)*.001];  %initial infected pop
+ initR = [Narr(1)*0;Narr(2)*0;Narr(3)*0];           %initial recovered pop
+ initB = [0;0;0];                                   %initial bateria in water
+
+
+N = sum(Narr) ;
+
+Lambda = [.0000638356;.0000638356;.0000638356];     %birth rates 
+mu= [.0000210958;.0000210958;.0000210958];          %mortality rate 
+beta = 10^-8*[1 1 1;
+              1 1 1;                                %human to human transmission rate
+              1 1 1];                             
+epsilon = [.0002739726;.0002739726;.0002739726];    %loss of immunity rate
+lambda = 10^-8* [1;1;1];                            %water to human transmission rate
+gamma =[.2;.2;.2];                                  %recovery rate
+alpha =[.0005;.0005;.0005];                         %disease induce mortality
+xi = [7;7;7];                                       %shedding rate
+delta =[.33;.33;.33];                               %baterial death rate
+
+
+flist = @(Y) [Lambda(1)*Narr(1)-mu(1)*Y(1)-beta(1,1)*Y(1)*Y(2)-beta(1,2)*Y(1)*Y(6)-lambda(1)*Y(1)*Y(4)+epsilon(1)*Y(3),...
+    beta(1,1)*Y(1)*Y(2)+beta(1,2)*Y(1)*Y(6)+lambda(1)*Y(1)*Y(4)-(gamma(1)+mu(1)+alpha(1))*Y(2),...
+    gamma(1)*Y(2)-mu(1)*Y(3)-epsilon(1)*Y(3),...
+    xi(1)*Y(2)-delta(1)*Y(4),...
+    Lambda(2)*Narr(2)-mu(2)*Y(5)-beta(2,2)*Y(5)*Y(6)-beta(2,1)*Y(5)*Y(2)-beta(2,3)*Y(5)*Y(10)-lambda(2)*Y(5)*Y(8)+epsilon(2)*Y(7),...
+    beta(2,2)*Y(5)*Y(6)+beta(2,1)*Y(5)*Y(2)+beta(2,3)*Y(5)*Y(10)+lambda(2)*Y(5)*Y(8)-(gamma(2)+mu(2)+alpha(2))*Y(6),...                                 %6  Im
+    gamma(2)*Y(6)-mu(2)*Y(7)-epsilon(2)*Y(7),...
+    xi(2)*Y(6)-delta(2)*Y(8),...
+    Lambda(3)*Narr(3)-mu(3)*Y(9)-beta(3,3)*Y(9)*Y(10)-beta(3,2)*Y(9)*Y(6)-lambda(3)*Y(9)*Y(12)+epsilon(3)*Y(11),...
+    beta(3,3)*Y(9)*Y(10)+beta(3,2)*Y(9)*Y(6)+lambda(3)*Y(9)*Y(12)-(gamma(3)+mu(3)+alpha(3))*Y(10),...
+    gamma(3)*Y(10)-mu(3)*Y(11)-epsilon(3)*Y(11),...
+    xi(3)*Y(10)-delta(3)*Y(12)];
+
+init = [initS(1) initI(1) initR(1) initB(1) initS(2) initI(2) initR(2) initB(2) initS(3) initI(3) initR(3) initB(3)];
+h=1;
+steps=time;
+freq=1;
+
+out = RKStage5( flist ,init, 1, time, 1);
+
+totS = out(:,1)+out(:,5)+out(:,9);
+totI = out(:,2)+out(:,6)+out(:,10);
+totR = out(:,3)+out(:,7)+out(:,11);
+totB = out(:,4)+out(:,8)+out(:,12);
+totals = [totS totI totR];
+endTotal = totals(time,:, :, :)
+totals = [totS totI totR, totB];
+
+
+hold on
+a1 = plot(timex,totS,'mREPLACE_WITH_DASH_DASH');
+M1 = 'susceptible pop';
+
+a2 = plot(timex,totI, 'k-.');
+M2 = 'infected pop   ';
+
+a3 = plot(timex,totR , 'b');
+M3 = 'recovered pop  ';
+
+
+xlabel('Time in Days'),ylabel('Total People'), title('SIWR GDP STRUCTURED MODEL total')
+legend([a1; a2; a3], [M1; M2; M3]);
+snapnow
+hold off
+clf
+
+hold on
+a1 = plot(timex,out(:,1),'mREPLACE_WITH_DASH_DASH');
+M1 = 'susceptible pop';
+
+a2 = plot(timex,out(:,2), 'k-.');
+M2 = 'infected pop   ';
+
+a3 = plot(timex,out(:,3) , 'b');
+M3 = 'recovered pop  ';
+
+
+xlabel('Time in Days'),ylabel('Total People'), title('SIWR GDP STRUCTURED MODEL high')
+legend([a1; a2; a3], [M1; M2; M3]);
+snapnow
+hold off
+clf
+hold on
+a1 = plot(timex,out(:,5),'mREPLACE_WITH_DASH_DASH');
+M1 = 'susceptible pop';
+
+a2 = plot(timex,out(:,6), 'k-.');
+M2 = 'infected pop   ';
+
+a3 = plot(timex,out(:,7) , 'b');
+M3 = 'recovered pop  ';
+
+
+xlabel('Time in Days'),ylabel('Total People'), title('SIWR GDP STRUCTURED MODEL mid')
+legend([a1; a2; a3], [M1; M2; M3]);
+snapnow
+hold off
+clf
+hold on
+a1 = plot(timex,out(:,9),'mREPLACE_WITH_DASH_DASH');
+M1 = 'susceptible pop';
+
+a2 = plot(timex,out(:,10), 'k-.');
+M2 = 'infected pop   ';
+
+a3 = plot(timex,out(:,11) , 'b');
+M3 = 'recovered pop  ';
+
+
+xlabel('Time in Days'),ylabel('Total People'), title('SIWR GDP STRUCTURED MODEL low')
+legend([a1; a2; a3], [M1; M2; M3]);
+snapnow
+hold off
+clf
+hold on
+a1 = plot(timex,out(:,4),'mREPLACE_WITH_DASH_DASH');
+M1 = 'bacteria high ';
+
+a2 = plot(timex,out(:,8), 'k-.');
+M2 = 'bateria mid   ';
+
+a3 = plot(timex,out(:,12) , 'b');
+M3 = 'bateria low   ';
+
+
+xlabel('Time in Days'),ylabel('Total bateria'), title('bateria differences')
+legend([a1; a2; a3], [M1; M2; M3]);
+snapnow
+hold off
+
+
+peaksinfected = [max(out(:,2)); max(out(:,6)); max(out(:,10))]
+peakTotInfected = max(totI)
+peaksbacteria = [max(out(:,4)); max(out(:,8)); max(out(:,12))]
+peakTotBateria = max(totB)
+sumtotals = sum(totals,1)
+data = out; 
+end
+
+
+##### SOURCE END #####
+--></body></html>

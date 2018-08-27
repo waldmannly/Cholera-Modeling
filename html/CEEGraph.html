@@ -1,0 +1,192 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>CEEGraph</title><meta name="generator" content="MATLAB 9.1"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2017-02-26"><meta name="DC.source" content="CEEGraph.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#3">Part a</a></li><li><a href="#4">part B and C</a></li></ul></div><pre class="codeinput"><span class="comment">%%6-36 Question</span>
+</pre><pre class="codeinput">years = ones(1,11) * 2000;
+adding = [0:10];
+years = (years+adding)' ;
+netGen = [3802105;3736644;3858452;3883185;3970555;4055423;4064702;4156745;4119388;3950331;4125060];
+</pre><h2 id="3">Part a</h2><pre class="codeinput">emissions = netGen* .68956
+
+
+years1 = ones(1,51) * 2000;
+adding = [0:50];
+years1 = (years1+adding)' ;
+</pre><pre class="codeoutput">
+emissions =
+
+   1.0e+06 *
+
+    2.6218
+    2.5766
+    2.6606
+    2.6777
+    2.7379
+    2.7965
+    2.8029
+    2.8663
+    2.8406
+    2.7240
+    2.8445
+
+</pre><h2 id="4">part B and C</h2><pre class="codeinput">genFit = fit(years, netGen, <span class="string">'poly1'</span>)
+
+emisFit = fit(years, emissions, <span class="string">'poly1'</span>)
+
+hold <span class="string">on</span>
+a1 = plot(genFit, years, netGen ,<span class="string">'g'</span>);
+M1 = <span class="string">'Net Generation'</span>;
+
+a2 = plot(emisFit, years, emissions ,<span class="string">'b'</span>);
+M2 = <span class="string">'CO2 emissions '</span>;
+
+xlabel(<span class="string">'Year'</span>),ylabel(<span class="string">'Net Generation tmWh(g),Metric tons CO2 emited(b)'</span>), title(<span class="string">'6-36 B'</span>)
+legend([a1;a2], [M1;M2]);
+snapnow
+hold <span class="string">off</span>
+clf
+
+fd =ones(1,51) ;
+fd=fd';
+
+a3 = plot(genFit,years1,fd ,<span class="string">'g'</span>);
+legend(a3,M1);
+xlabel(<span class="string">'Year'</span>),ylabel(<span class="string">'Net Generation from all energy Sources'</span>),title(<span class="string">'net gen fit'</span>)
+snapnow
+
+clf
+a3 = plot(emisFit,years1,fd ,<span class="string">'b'</span>);
+legend(a3,M2);
+xlabel(<span class="string">'Year'</span>),ylabel(<span class="string">'Metric tons of CO2 emited'</span>),title(<span class="string">'emission fit'</span>)
+</pre><pre class="codeoutput">
+genFit = 
+
+     Linear model Poly1:
+     genFit(x) = p1*x + p2
+     Coefficients (with 95% confidence bounds):
+       p1 =    3.54e+04  (1.743e+04, 5.336e+04)
+       p2 =  -6.699e+07  (-1.03e+08, -3.097e+07)
+
+emisFit = 
+
+     Linear model Poly1:
+     emisFit(x) = p1*x + p2
+     Coefficients (with 95% confidence bounds):
+       p1 =   2.441e+04  (1.202e+04, 3.68e+04)
+       p2 =   -4.62e+07  (-7.104e+07, -2.136e+07)
+Warning: Ignoring extra legend entries. 
+</pre><img vspace="5" hspace="5" src="CEEGraph_01.png" alt=""> <pre class="codeoutput">Warning: Ignoring extra legend entries. 
+</pre><img vspace="5" hspace="5" src="CEEGraph_02.png" alt=""> <pre class="codeoutput">Warning: Ignoring extra legend entries. 
+</pre><img vspace="5" hspace="5" src="CEEGraph_03.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2016b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%%6-36 Question 
+%% 
+years = ones(1,11) * 2000;
+adding = [0:10];
+years = (years+adding)' ;
+netGen = [3802105;3736644;3858452;3883185;3970555;4055423;4064702;4156745;4119388;3950331;4125060];
+
+%% Part a 
+emissions = netGen* .68956
+
+
+years1 = ones(1,51) * 2000;
+adding = [0:50];
+years1 = (years1+adding)' ;
+%% part B and C 
+genFit = fit(years, netGen, 'poly1')
+
+emisFit = fit(years, emissions, 'poly1')
+
+hold on
+a1 = plot(genFit, years, netGen ,'g');
+M1 = 'Net Generation';
+
+a2 = plot(emisFit, years, emissions ,'b');
+M2 = 'CO2 emissions ';
+
+xlabel('Year'),ylabel('Net Generation tmWh(g),Metric tons CO2 emited(b)'), title('6-36 B')
+legend([a1;a2], [M1;M2]);
+snapnow
+hold off
+clf
+
+fd =ones(1,51) ;
+fd=fd';
+
+a3 = plot(genFit,years1,fd ,'g');
+legend(a3,M1); 
+xlabel('Year'),ylabel('Net Generation from all energy Sources'),title('net gen fit')
+snapnow
+
+clf
+a3 = plot(emisFit,years1,fd ,'b');
+legend(a3,M2); 
+xlabel('Year'),ylabel('Metric tons of CO2 emited'),title('emission fit')
+##### SOURCE END #####
+--></body></html>
